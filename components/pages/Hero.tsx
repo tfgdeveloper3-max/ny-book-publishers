@@ -1,271 +1,50 @@
 "use client";
 
-const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
-  .nybp-hero {
-    background-color: #1a1f5e;
-    min-height: 600px;
-    position: relative;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .nybp-hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('/images/home-books.png');
-    background-repeat: no-repeat;
-    background-position: bottom center;
-    background-size: contain;
-    opacity: 0.1;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .nybp-hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 60px 30px 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-  }
-
-  .nybp-hero-left { flex: 1; max-width: 580px; }
-
-  .nybp-hero-eyebrow {
-    font-size: 16px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
-  }
-
-  .nybp-hero-title {
-    font-size: clamp(72px, 9vw, 108px);
-    font-weight: 800;
-    color: #00BCD4;
-    line-height: 0.88;
-    text-transform: uppercase;
-    margin: 0;
-    letter-spacing: -1px;
-  }
-
-  .nybp-hero-subtitle {
-    font-size: clamp(15px, 1.8vw, 20px);
-    font-weight: 700;
-    color: #ffffff;
-    text-transform: uppercase;
-    margin-top: 14px;
-    margin-bottom: 20px;
-    line-height: 1.35;
-    letter-spacing: 0.3px;
-  }
-
-  .nybp-hero-desc {
-    font-size: 14px;
-    font-weight: 400;
-    color: rgba(255,255,255,0.78);
-    line-height: 1.78;
-    margin-bottom: 28px;
-    max-width: 500px;
-  }
-
-  .nybp-hero-badges { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
-  .nybp-hero-badges img { height: 70px; width: auto; object-fit: cover; }
-
-  .nybp-hero-btns { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-
-  .nybp-btn-chat {
-    background: transparent;
-    border: 2px solid rgba(255,255,255,0.45);
-    color: #ffffff;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .nybp-btn-chat:hover { border-color: #ffffff; background: rgba(255,255,255,0.08); }
-
-  .nybp-btn-free {
-    background: #00BCD4;
-    border: none;
-    color: #1a1f5e;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .nybp-btn-free:hover { background: #0097A7; }
-
-  .nybp-laptop-float {
-    position: absolute;
-    top: 24px;
-    left: 45%;
-    transform: translateX(-110px);
-    width: 230px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .nybp-hero-right { flex-shrink: 0; width: 550px; position: relative; padding-right: 100px; }
-
-  .nybp-form-card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 34px 30px 30px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    position: relative;
-    z-index: 2;
-    border-top: 4px solid #00BCD4;
-  }
-
-  .nybp-form-logo { text-align: left; margin-bottom: 14px; }
-  .nybp-form-logo img { height: 56px; width: auto; object-fit: contain; }
-
-  .nybp-form-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: #1a1f5e;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 20px;
-  }
-
-  .nybp-input {
-    width: 100%;
-    border: 1.5px solid #dde1e7;
-    border-radius: 8px;
-    padding: 13px 16px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13.5px;
-    color: #444;
-    outline: none;
-    margin-bottom: 12px;
-    display: block;
-    transition: border-color 0.2s;
-    background: #fff;
-  }
-  .nybp-input::placeholder { color: #aab0bb; }
-  .nybp-input:focus { border-color: #00BCD4; }
-
-  textarea.nybp-input { height: 108px; resize: vertical; }
-
-  .nybp-captcha {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 1.5px solid #dde1e7;
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 14px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13.5px;
-    color: #555;
-  }
-  .nybp-captcha input[type="checkbox"] { width: 18px; height: 18px; accent-color: #00BCD4; cursor: pointer; flex-shrink: 0; }
-  .nybp-captcha-brand { margin-left: auto; text-align: center; font-size: 10px; color: #999; line-height: 1.5; }
-  .nybp-captcha-brand .nybp-lock { font-size: 16px; }
-
-  .nybp-btn-contact {
-    width: 100%;
-    background: #00BCD4;
-    color: #1a1f5e;
-    border: none;
-    border-radius: 8px;
-    padding: 15px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .nybp-btn-contact:hover { background: #0097A7; }
-
-  .nybp-tablet-float {
-    position: absolute;
-    right: -85px;
-    top: 55%;
-    transform: translateY(-50%);
-    width: 150px;
-    pointer-events: none;
-    z-index: 3;
-  }
-
-  @media (max-width: 960px) {
-    .nybp-hero-inner { flex-direction: column; padding: 40px 20px 48px; }
-    .nybp-hero-right { width: 100%; padding-right: 0; }
-    .nybp-laptop-float { display: none; }
-    .nybp-tablet-float { display: none; }
-    .nybp-hero-left { max-width: 100%; }
-  }
-`;
-
 export default function Hero() {
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
-      <section className="nybp-hero">
-        <div className="nybp-hero-bg" />
-        <img src="/images/laptop.webp" alt="" className="nybp-laptop-float" />
-        <div className="nybp-hero-inner">
-          <div className="nybp-hero-left">
-            <p className="nybp-hero-eyebrow">Make Your Book A</p>
-            <h1 className="nybp-hero-title">BEST<br />SELLER</h1>
-            <p className="nybp-hero-subtitle">With Our Expert Book Publishing Services</p>
-            <p className="nybp-hero-desc">
-              Don't hide your story when the world is waiting to hear it. Show your creativity
-              with confidence and let us guide you through every step. Your creativity stays
-              in your hands, and we never change your voice or your vision. Writing, editing,
-              marketing, designing, publishing, everything you need is right here at NY Book Publishers.
-            </p>
-            <div className="nybp-hero-badges">
-              <img src="/images/google3.png" alt="Google Reviews 5 Stars" />
-              <img src="/images/footer-icon1.webp" alt="Trustpilot 5 Stars" />
-            </div>
-            <div className="nybp-hero-btns">
-              <button className="nybp-btn-chat">Chat with us</button>
-              <button className="nybp-btn-free">Book Free Consultation</button>
-            </div>
+    <section style={{ background: "var(--gradient-dark)", minHeight: 600, position: "relative", overflow: "hidden", fontFamily: "var(--font)" }}>
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/home-books.png')", backgroundRepeat: "no-repeat", backgroundPosition: "bottom center", backgroundSize: "contain", opacity: 0.07, pointerEvents: "none", zIndex: 0 }} />
+      <img src="/images/laptop.webp" alt="" style={{ position: "absolute", top: 24, left: "45%", transform: "translateX(-110px)", width: 230, pointerEvents: "none", zIndex: 0 }} />
+
+      <div style={{ position: "relative", zIndex: 1, maxWidth: 1320, margin: "0 auto", padding: "60px 30px 70px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40, flexWrap: "wrap" }}>
+        {/* Left */}
+        <div style={{ flex: 1, maxWidth: 580 }}>
+          <p style={{ fontSize: 16, fontWeight: 600, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 2 }}>Make Your Book A</p>
+          <h1 style={{ fontSize: "clamp(72px, 9vw, 108px)", fontWeight: 900, color: "var(--accent)", lineHeight: 0.88, textTransform: "uppercase", margin: 0, letterSpacing: -1 }}>BEST<br />SELLER</h1>
+          <p style={{ fontSize: "clamp(15px, 1.8vw, 20px)", fontWeight: 700, color: "var(--white)", textTransform: "uppercase", margin: "14px 0 20px", lineHeight: 1.35 }}>With Our Expert Book Publishing Services</p>
+          <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.78, marginBottom: 28, maxWidth: 500 }}>
+            Don't hide your story when the world is waiting to hear it. Your creativity stays in your hands — we never change your voice or vision. Writing, editing, marketing, designing, publishing — everything you need is right here.
+          </p>
+          <div style={{ display: "flex", gap: 20, marginBottom: 30, flexWrap: "wrap" }}>
+            <img src="/images/google3.png" alt="Google Reviews" style={{ height: 70, objectFit: "contain" }} />
+            <img src="/images/footer-icon1.webp" alt="Trustpilot" style={{ height: 70, objectFit: "contain" }} />
           </div>
-          <div className="nybp-hero-right">
-            <div className="nybp-form-card">
-              <div className="nybp-form-logo">
-                <img src="/images/new-logo.png" alt="NY Book Publishers" />
-              </div>
-              <p className="nybp-form-title">Become A Published Author</p>
-              <input className="nybp-input" type="text" placeholder="Enter Your Name" />
-              <input className="nybp-input" type="email" placeholder="Enter Your Email" />
-              <input className="nybp-input" type="tel" placeholder="+123 456 7890" />
-              <textarea className="nybp-input" placeholder="Type Your Messages . . . ." />
-              <div className="nybp-captcha">
-                <input type="checkbox" id="nybp-robot" />
-                <label htmlFor="nybp-robot">I'm not a robot</label>
-                <div className="nybp-captcha-brand">
-                  <div className="nybp-lock">🔒</div>
-                  <div>reCAPTCHA</div>
-                  <div>Privacy - Terms</div>
-                </div>
-              </div>
-              <button className="nybp-btn-contact">Contact Us</button>
-            </div>
-            <img src="/images/tablet.webp" alt="" className="nybp-tablet-float" />
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            <a href="#" className="btn-outline-white">Chat with us</a>
+            <a href="#" className="btn-accent">Book Free Consultation</a>
           </div>
         </div>
-      </section>
-    </>
+
+        {/* Right: Form */}
+        <div style={{ flexShrink: 0, width: 450, position: "relative", paddingRight: 80 }}>
+          <div style={{ background: "var(--white)", borderRadius: 14, padding: "34px 30px 30px", boxShadow: "var(--shadow-lg)", borderTop: "4px solid var(--accent)" }}>
+            <img src="/images/new-logo.png" alt="NY Book Publishers" style={{ height: 56, objectFit: "contain", marginBottom: 14 }} />
+            <p style={{ fontSize: 13, fontWeight: 700, color: "var(--navy)", textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 20 }}>Become A Published Author</p>
+            {["text:Enter Your Name", "email:Enter Your Email", "tel:+123 456 7890"].map(f => {
+              const [type, ph] = f.split(":");
+              return <input key={ph} className="nybp-input" type={type} placeholder={ph} style={{ marginBottom: 12 }} />;
+            })}
+            <textarea className="nybp-input" placeholder="Type Your Message..." style={{ height: 100, resize: "vertical", marginBottom: 12 }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 10, border: "1.5px solid #dde1e7", borderRadius: 8, padding: "12px 16px", marginBottom: 14 }}>
+              <input type="checkbox" id="robot" style={{ width: 18, height: 18, accentColor: "var(--accent)", cursor: "pointer" }} />
+              <label htmlFor="robot" style={{ fontSize: 13.5, color: "#555" }}>I'm not a robot</label>
+              <span style={{ marginLeft: "auto", fontSize: 10, color: "#999", textAlign: "center", lineHeight: 1.5 }}>🔒<br />reCAPTCHA</span>
+            </div>
+            <button className="btn-accent" style={{ width: "100%", borderRadius: 8, padding: 15, fontSize: 15, letterSpacing: 1, textTransform: "uppercase", textAlign: "center" }}>Contact Us</button>
+          </div>
+          <img src="/images/tablet.webp" alt="" style={{ position: "absolute", right: -70, top: "55%", transform: "translateY(-50%)", width: 140, pointerEvents: "none", zIndex: 3 }} />
+        </div>
+      </div>
+    </section>
   );
 }

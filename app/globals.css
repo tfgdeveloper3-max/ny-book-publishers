@@ -1,26 +1,359 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
+/* ── CSS Variables ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --accent: #F0A500;
+  --accent-hover: #C88400;
+  --accent-light: rgba(240, 165, 0, 0.12);
+  --navy: #1a1f5e;
+  --navy-dark: #0f1340;
+  --navy-deeper: #0d1240;
+  --white: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.78);
+  --text-dark: #333333;
+  --text-mid: #555555;
+  --gradient-dark: linear-gradient(135deg, #0d1240 0%, #1a1f5e 55%, #0f2a5e 100%);
+  --gradient-navy: linear-gradient(180deg, #131852 0%, #1a1f5e 100%);
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.35);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-pill: 50px;
+  --transition: 0.22s ease;
+  --font: 'Poppins', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Reset & Base ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font);
+  color: var(--text-dark);
+  background: var(--white);
+}
+
+/* ── Typography ── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font);
+  line-height: 1.25;
+}
+
+.nybp-heading-light {
+  color: var(--white);
+}
+
+.nybp-heading-accent {
+  color: var(--accent);
+}
+
+.nybp-heading-navy {
+  color: var(--navy);
+}
+
+/* ── Buttons ── */
+.btn-accent {
+  background: var(--accent);
+  color: var(--navy);
+  border: none;
+  padding: 13px 32px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  letter-spacing: 0.3px;
+}
+
+.btn-accent:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(240, 165, 0, 0.35);
+}
+
+.btn-navy {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 13px 32px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.btn-navy:hover {
+  background: var(--navy-dark);
+  transform: translateY(-2px);
+}
+
+.btn-outline-accent {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  padding: 11px 30px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.btn-outline-accent:hover {
+  background: var(--accent);
+  color: var(--navy);
+  transform: translateY(-2px);
+}
+
+.btn-outline-white {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 11px 30px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.btn-outline-white:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Backgrounds ── */
+.bg-white {
+  background: var(--white);
+}
+
+.bg-dark {
+  background: var(--gradient-dark);
+}
+
+.bg-navy {
+  background: var(--navy);
+}
+
+.bg-accent {
+  background: var(--accent);
+}
+
+/* ── Section base ── */
+.nybp-section {
+  font-family: var(--font);
+}
+
+/* ── Dark section text defaults ── */
+.bg-dark h1,
+.bg-dark h2,
+.bg-dark h3 {
+  color: var(--accent);
+}
+
+.bg-dark p {
+  color: var(--text-muted);
+}
+
+/* ── Forms ── */
+.nybp-input {
+  width: 100%;
+  border: 1.5px solid #dde1e7;
+  border-radius: var(--radius-sm);
+  padding: 13px 16px;
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--text-dark);
+  outline: none;
+  background: var(--white);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  display: block;
+  box-sizing: border-box;
+}
+
+.nybp-input::placeholder {
+  color: #aab0bb;
+}
+
+.nybp-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(240, 165, 0, 0.15);
+}
+
+/* ── Links ── */
+.nybp-link-accent {
+  color: var(--accent);
+  text-decoration: underline;
+  font-weight: 700;
+  transition: color var(--transition);
+}
+
+.nybp-link-accent:hover {
+  color: var(--accent-hover);
+}
+
+/* ── Accent badge/tag ── */
+.nybp-badge {
+  background: var(--accent);
+  color: var(--navy);
+  display: inline-block;
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── Accent border left ── */
+.nybp-border-accent {
+  border-left: 4px solid var(--accent);
+}
+
+/* ── FAQ accordion ── */
+.nybp-faq-item {
+  border: 1.5px solid var(--accent);
+  border-radius: 40px;
+  overflow: hidden;
+  transition: border-radius var(--transition);
+}
+
+.nybp-faq-item.open {
+  border-radius: 16px;
+}
+
+.nybp-faq-question {
+  width: 100%;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  text-align: left;
+  gap: 16px;
+  transition: color var(--transition);
+}
+
+.nybp-faq-question:hover {
+  color: var(--accent);
+}
+
+.nybp-faq-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 300;
+  transition: background var(--transition), transform 0.3s;
+}
+
+.nybp-faq-item.open .nybp-faq-icon {
+  background: var(--accent);
+  color: var(--navy);
+  transform: rotate(45deg);
+}
+
+.nybp-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.25s ease;
+  padding: 0 24px;
+}
+
+.nybp-faq-item.open .nybp-faq-answer {
+  max-height: 300px;
+  padding: 0 24px 18px;
+}
+
+.nybp-faq-answer p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin: 0;
+}
+
+/* ── Card hover lift ── */
+.nybp-card-hover {
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.nybp-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Nav ── */
+.nybp-nav-link {
+  transition: color var(--transition);
+}
+
+.nybp-nav-link:hover {
+  color: var(--accent) !important;
+}
+
+/* ── Social icon hover ── */
+.nybp-social svg {
+  fill: var(--accent);
+  transition: fill var(--transition), transform var(--transition);
+}
+
+.nybp-social:hover svg {
+  fill: var(--accent-hover);
+  transform: translateY(-3px);
+}
+
+/* ── Scrollbar (optional polish) ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--navy-deeper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+/* ── Responsive helpers ── */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
 }
