@@ -1,20 +1,32 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export default function GetInTouchSection() {
+export function GetInTouchSection() {
   const [checked, setChecked] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
-  const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) el.querySelectorAll(".reveal,.reveal-left,.reveal-right").forEach(c => c.classList.add("revealed"));
+    }, { threshold: 0.1 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <div style={{ fontFamily: "var(--font)", background: "var(--white)" }}>
-      {/* Top band */}
-      <div style={{ textAlign: "center", padding: "64px 24px 48px", borderBottom: "1px solid #f0f0f0" }}>
-        <h2 style={{ fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 800, color: "var(--navy)", margin: "0 0 10px" }}>Get In Touch</h2>
-        <h3 style={{ fontSize: "clamp(16px, 2.2vw, 22px)", fontWeight: 700, color: "var(--accent)", margin: "0 0 16px", lineHeight: 1.4 }}>
+    <div ref={ref} style={{ fontFamily: "var(--font)", background: "var(--white)" }}>
+      {/* top CTA */}
+      <div className="reveal" style={{ textAlign: "center", padding: "68px 24px 52px", borderBottom: "1px solid #f0f0f0" }}>
+        <p className="section-eyebrow">Contact Us</p>
+        <h2 className="section-title">Get In Touch</h2>
+        <h3 style={{ fontSize: "clamp(15px,2vw,22px)", fontWeight: 700, color: "var(--accent)", marginBottom: 16, lineHeight: 1.4 }}>
           Contact NY Book Publishers For Professional Book Publishing Services
         </h3>
-        <p style={{ fontSize: 14, color: "#666", lineHeight: 1.8, maxWidth: 500, margin: "0 auto 28px" }}>
+        <p style={{ fontSize: 14, color: "#666", lineHeight: 1.85, maxWidth: 500, margin: "0 auto 32px" }}>
           Reach out to our team and start your author journey with confidence.
         </p>
         <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
@@ -23,26 +35,37 @@ export default function GetInTouchSection() {
         </div>
       </div>
 
-      {/* Form band */}
-      <div style={{ padding: "64px 40px 72px", display: "flex", gap: 40, alignItems: "flex-start", maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ flex: "0 0 340px", paddingTop: 80 }}>
-          <img src="/images/yes-book.png" alt="Books" style={{ width: "100%", objectFit: "contain", filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.12))" }} />
+      {/* form */}
+      <div style={{ padding: "68px 48px 80px", display: "flex", gap: 44, alignItems: "flex-start", maxWidth: 1100, margin: "0 auto", flexWrap: "wrap" }}>
+        <div className="reveal-left" style={{ flex: "0 0 300px", paddingTop: 72 }}>
+          <img src="/images/yes-book.png" alt="Books" style={{ width: "100%", objectFit: "contain", filter: "drop-shadow(0 12px 32px rgba(0,0,0,0.12))" }} />
         </div>
-        <div style={{ flex: 1 }}>
-          <h3 style={{ fontSize: "clamp(22px, 3vw, 32px)", fontWeight: 800, color: "var(--navy)", margin: "0 0 28px" }}>Ready To Discuss Your Story?</h3>
+        <div className="reveal-right" style={{ flex: 1 }}>
+          <h3 className="section-title" style={{ marginBottom: 28 }}>Ready To Discuss Your Story?</h3>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <input className="nybp-input" name="name" placeholder="Enter Your Name" value={form.name} onChange={handle} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
               <input className="nybp-input" name="email" type="email" placeholder="Enter Your Email" value={form.email} onChange={handle} />
               <input className="nybp-input" name="phone" type="tel" placeholder="Enter Phone Number" value={form.phone} onChange={handle} />
             </div>
-            <textarea className="nybp-input" name="message" placeholder="Enter Message" value={form.message} onChange={handle} style={{ minHeight: 130, resize: "vertical" }} />
-            <div style={{ display: "flex", alignItems: "center", gap: 12, border: "1.5px solid #d0d0d0", borderRadius: 6, padding: "14px 16px", background: "#f9f9f9" }}>
-              <div onClick={() => setChecked(!checked)} style={{ width: 20, height: 20, border: `2px solid ${checked ? "#4caf50" : "#aaa"}`, borderRadius: 3, cursor: "pointer", background: checked ? "#4caf50" : "#fff", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 12 }}>{checked ? "✓" : ""}</div>
+            <textarea className="nybp-input" name="message" placeholder="Enter Message" value={form.message} onChange={handle} style={{ minHeight: 130 }} />
+
+            {/* captcha */}
+            <div style={{ display: "flex", alignItems: "center", gap: 12, border: "1.5px solid #d0d0d0", borderRadius: 10, padding: "14px 18px", background: "#f8fafc" }}>
+              <div onClick={() => setChecked(!checked)} style={{
+                width: 22, height: 22, border: `2px solid ${checked ? "#4caf50" : "#aaa"}`, borderRadius: 5,
+                background: checked ? "#4caf50" : "#fff", display: "flex", alignItems: "center", justifyContent: "center",
+                color: "#fff", fontSize: 13, transition: "all 0.2s",
+              }}>
+                {checked ? "✓" : ""}
+              </div>
               <span style={{ fontSize: 13, color: "#555", flex: 1 }}>I'm not a robot</span>
               <span style={{ fontSize: 9, color: "#aaa", textAlign: "center", lineHeight: 1.5 }}>🔒<br />reCAPTCHA</span>
             </div>
-            <button className="btn-navy" style={{ alignSelf: "flex-start", borderRadius: "var(--radius-pill)", padding: "14px 44px", fontSize: 14 }}>Get Started</button>
+
+            <a href="#" className="btn-navy" style={{ alignSelf: "flex-start", borderRadius: "var(--radius-pill)", padding: "14px 48px", fontSize: 14 }}>
+              Get Started
+            </a>
           </div>
         </div>
       </div>

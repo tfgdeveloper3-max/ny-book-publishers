@@ -1,28 +1,35 @@
 "use client";
 
 const logos = [
-  { src: "/images/hero-logo4.png", alt: "Apple Books" },
-  { src: "/images/amazon.png", alt: "Amazon Kindle" },
-  { src: "/images/hero-logo2.png", alt: "IngramSpark" },
-  { src: "/images/hero-logo1.png", alt: "Goodreads" },
+  { label: "Apple Books" }, { label: "Amazon Kindle" },
+  { label: "IngramSpark" }, { label: "Goodreads" },
+  { label: "Barnes & Noble" }, { label: "Kobo" },
 ];
-const allLogos = [...logos, ...logos, ...logos, ...logos, ...logos, ...logos];
+const all = [...logos, ...logos, ...logos, ...logos];
 
-export default function LogoBar() {
+export function LogoBar() {
   return (
     <>
       <style>{`
         @keyframes nybpSlide { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-        .nybp-logobar-track { animation: nybpSlide 24s linear infinite; }
-        .nybp-logobar-track:hover { animation-play-state: paused; }
-        .nybp-logo-item img { opacity:0.7; filter:brightness(0) invert(1); transition:opacity .3s,transform .3s; }
-        .nybp-logo-item img:hover { opacity:1; transform:scale(1.08); }
+        .nybp-logobar-track { animation:nybpSlide 22s linear infinite; }
+        .nybp-logobar-track:hover { animation-play-state:paused; }
+        .nybp-logo-pill { transition:all 0.3s; }
+        .nybp-logo-pill:hover { background:rgba(240,165,0,0.18) !important; color:var(--accent) !important; transform:scale(1.06); }
       `}</style>
-      <div style={{ background: "var(--gradient-dark)", overflow: "hidden", height: 100, display: "flex", alignItems: "center", borderTop: "1px solid rgba(240,165,0,0.15)", borderBottom: "1px solid rgba(240,165,0,0.15)" }}>
+      <div style={{ background: "var(--gradient-dark)", overflow: "hidden", height: 88, display: "flex", alignItems: "center", borderTop: "1px solid rgba(240,165,0,0.12)", borderBottom: "1px solid rgba(240,165,0,0.12)" }}>
         <div className="nybp-logobar-track" style={{ display: "flex", alignItems: "center", width: "max-content" }}>
-          {allLogos.map((logo, i) => (
-            <div key={i} className="nybp-logo-item" style={{ padding: "0 48px", flexShrink: 0 }}>
-              <img src={logo.src} alt={logo.alt} style={{ height: 36, width: "auto", objectFit: "contain", display: "block" }} />
+          {all.map((l, i) => (
+            <div key={i} style={{ padding: "0 40px", flexShrink: 0 }}>
+              <div className="nybp-logo-pill" style={{
+                background: "rgba(255,255,255,0.05)", border: "1px solid rgba(240,165,0,0.2)",
+                borderRadius: 40, padding: "8px 22px",
+                fontSize: 12, fontWeight: 800, color: "rgba(255,255,255,0.55)",
+                letterSpacing: 2, textTransform: "uppercase", fontFamily: "var(--font)",
+                whiteSpace: "nowrap",
+              }}>
+                {l.label}
+              </div>
             </div>
           ))}
         </div>
@@ -30,3 +37,4 @@ export default function LogoBar() {
     </>
   );
 }
+
