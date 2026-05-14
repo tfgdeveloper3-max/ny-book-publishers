@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link"; // Next.js Link component import kiya
 
 const servicesMenu = [
   {
@@ -45,6 +46,15 @@ const servicesMenu = [
 
 const slugify = (s: string) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+// Nav links ka data with proper routes
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Blogs", href: "/blogs" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Contact", href: "/contact" },
+];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -315,7 +325,7 @@ export default function Navbar() {
             { href: "mailto:info@nybookpublishers.com", label: "info@nybookpublishers.com", icon: "M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm2 0l6 5 6-5H4zm0 2v8h12V6l-6 5-6-5z" },
             { href: "tel:8553847020", label: "(855) 384-7020", icon: "M2 3a1 1 0 011-1h3.5a1 1 0 011 .88l.5 3a1 1 0 01-.29.89L6.5 8a11.1 11.1 0 005.5 5.5l1.22-1.22a1 1 0 01.9-.29l3 .5A1 1 0 0118 13.5V17a1 1 0 01-1 1C8.16 18 2 11.84 2 4V3z" },
           ].map(({ href, label, icon }) => (
-            <a key={href} href={href} style={{ color: "rgba(255,255,255,0.85)", fontSize: 13, fontWeight: 600, display: "flex", alignItems: "center", gap: 7, transition: "color 0.2s" }}
+            <a key={href} href={href} style={{ color: "rgba(255,255,255,0.85)", fontSize: 13, fontWeight: 600, display: "flex", alignItems: "center", gap: 7, transition: "color 0.2s", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
               onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}>
               <svg width="14" height="14" viewBox="0 0 20 20" fill="var(--accent)"><path d={icon} /></svg>
@@ -335,7 +345,7 @@ export default function Navbar() {
         <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 40px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 80 }}>
 
           {/* Logo */}
-          <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
+          <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{ width: 42, height: 42, background: "var(--gradient-dark)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", border: "2px solid var(--accent)" }}>
               <span style={{ fontSize: 16, fontWeight: 900, color: "var(--accent)", fontFamily: "var(--font2)" }}>NY</span>
             </div>
@@ -343,30 +353,32 @@ export default function Navbar() {
               <span style={{ fontSize: 20, fontWeight: 900, color: "var(--navy)", fontFamily: "var(--font2)", letterSpacing: 1, display: "block", lineHeight: 1.1 }}>PUBLISHERS</span>
               <span style={{ fontSize: 9, fontWeight: 700, color: "var(--accent)", letterSpacing: 3, textTransform: "uppercase" }}>New York</span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop links */}
           <ul className="hide-mobile" style={{ display: "flex", alignItems: "center", listStyle: "none", gap: 2, margin: 0, padding: 0 }}>
-            {["Home", "About Us", "Blogs", "Portfolio", "Contact"].map(item => (
-              <li key={item}>
-                <a href="#" style={{ fontSize: 14, fontWeight: 600, color: "#222", padding: "10px 13px", display: "block", borderRadius: 8, transition: "color 0.2s, background 0.2s" }}
+
+            {/* Map over navLinks array */}
+            {navLinks.map(item => (
+              <li key={item.label}>
+                <Link href={item.href} style={{ fontSize: 14, fontWeight: 600, color: "#222", padding: "10px 13px", display: "block", borderRadius: 8, transition: "color 0.2s, background 0.2s", textDecoration: "none" }}
                   onMouseEnter={e => { e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.background = "rgba(240,165,0,0.06)"; }}
                   onMouseLeave={e => { e.currentTarget.style.color = "#222"; e.currentTarget.style.background = "transparent"; }}>
-                  {item}
-                </a>
+                  {item.label}
+                </Link>
               </li>
             ))}
 
             {/* Services mega dropdown */}
             <li style={{ position: "relative" }} onMouseEnter={openMega} onMouseLeave={closeMega}>
-              <a href="#" style={{ fontSize: 14, fontWeight: 600, color: "#222", padding: "10px 13px", display: "flex", alignItems: "center", gap: 5, borderRadius: 8, transition: "color 0.2s, background 0.2s" }}
+              <Link href="/services" style={{ fontSize: 14, fontWeight: 600, color: "#222", padding: "10px 13px", display: "flex", alignItems: "center", gap: 5, borderRadius: 8, transition: "color 0.2s, background 0.2s", textDecoration: "none" }}
                 onMouseEnter={e => { e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.background = "rgba(240,165,0,0.06)"; }}
                 onMouseLeave={e => { e.currentTarget.style.color = "#222"; e.currentTarget.style.background = "transparent"; }}>
                 Services
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" style={{ marginTop: 1, transition: "transform 0.3s", transform: megaOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
                   <path d="M1 3l4 4 4-4" />
                 </svg>
-              </a>
+              </Link>
 
               {/* Mega menu panel */}
               <div className={`nybp-mega${megaOpen ? " open" : ""}`} onMouseEnter={openMega} onMouseLeave={closeMega}>
@@ -382,7 +394,7 @@ export default function Navbar() {
                   ))}
                   <div className="mega-left-cta">
                     <p>Ready to publish<br />your story?</p>
-                    <a href="/contact" onClick={() => setMegaOpen(false)}>Free Consultation</a>
+                    <Link href="/contact" onClick={() => setMegaOpen(false)}>Free Consultation</Link>
                   </div>
                 </div>
 
@@ -392,10 +404,10 @@ export default function Navbar() {
                   <ul className="mega-links-grid">
                     {activeLinks.map(link => (
                       <li key={link}>
-                        <a href={`/services/${slugify(link)}`} onClick={() => setMegaOpen(false)}>
+                        <Link href={`/services/${slugify(link)}`} onClick={() => setMegaOpen(false)}>
                           <span className="mega-link-dot">›</span>
                           {link}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -411,8 +423,8 @@ export default function Navbar() {
 
           {/* CTA Buttons */}
           <div className="hide-mobile" style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            <a href="tel:8553847020" className="btn-accent" style={{ fontSize: 13, padding: "10px 20px" }}>📞 (855) 384-7020</a>
-            <a href="#" className="btn-navy" style={{ fontSize: 13, padding: "10px 20px" }}>Free Consultation</a>
+            <a href="tel:8553847020" className="btn-accent" style={{ fontSize: 13, padding: "10px 20px", textDecoration: "none" }}>📞 (855) 384-7020</a>
+            <Link href="/contact" className="btn-navy" style={{ fontSize: 13, padding: "10px 20px", textDecoration: "none" }}>Free Consultation</Link>
           </div>
 
           {/* Hamburger */}
@@ -432,17 +444,23 @@ export default function Navbar() {
         {/* Mobile Menu */}
         <div style={{ maxHeight: mobileOpen ? 1000 : 0, overflow: "hidden", transition: "max-height 0.4s cubic-bezier(0.16,1,0.3,1)", background: "#fff", borderTop: mobileOpen ? "1px solid rgba(240,165,0,0.15)" : "none" }}>
           <div style={{ padding: "8px 0 16px", display: "flex", flexDirection: "column" }}>
-            {["Home", "About Us", "Blogs", "Portfolio", "Reviews", "Contact"].map(item => (
-              <a key={item} href="#" style={{ fontSize: 14, fontWeight: 600, color: "#222", padding: "12px 28px", borderBottom: "1px solid #f2f2f2", transition: "color 0.2s" }}
+
+            {/* Mobile nav links */}
+            {navLinks.map(item => (
+              <Link key={item.label} href={item.href} style={{ fontSize: 14, fontWeight: 600, color: "#222", padding: "12px 28px", borderBottom: "1px solid #f2f2f2", transition: "color 0.2s", textDecoration: "none" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
                 onMouseLeave={e => (e.currentTarget.style.color = "#222")}>
-                {item}
-              </a>
+                {item.label}
+              </Link>
             ))}
 
             {/* Mobile Services */}
             <div className="mob-serv-toggle">
-              <a href="/services">Services</a>
+              <Link href="/services" style={{ fontSize: 14, fontWeight: 600, color: "#222", padding: "12px 0 12px 28px", flex: 1, transition: "color 0.2s", textDecoration: "none" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
+                onMouseLeave={e => (e.currentTarget.style.color = "#222")}>
+                Services
+              </Link>
               <button className={mobileServOpen ? "rotated" : ""} onClick={() => setMobileServOpen(!mobileServOpen)}>+</button>
             </div>
 
@@ -455,14 +473,14 @@ export default function Navbar() {
                   </button>
                   <div className={`mob-links-wrap${mobileSub === srv.label ? " open" : ""}`}>
                     {srv.links.map(link => (
-                      <a key={link} href={`/services/${slugify(link)}`}>{link}</a>
+                      <Link key={link} href={`/services/${slugify(link)}`}>{link}</Link>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
 
-            <a href="tel:8553847020" style={{ color: "var(--accent)", fontWeight: 800, padding: "12px 28px", fontSize: 14 }}>📞 (855) 384-7020</a>
+            <a href="tel:8553847020" style={{ color: "var(--accent)", fontWeight: 800, padding: "12px 28px", fontSize: 14, textDecoration: "none" }}>📞 (855) 384-7020</a>
           </div>
         </div>
       </nav>

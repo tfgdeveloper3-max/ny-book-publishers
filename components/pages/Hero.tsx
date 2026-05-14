@@ -71,7 +71,7 @@ export default function Hero() {
 
       <section style={{
         background: "var(--gradient-dark)",
-        minHeight: 640, position: "relative", overflow: "hidden",
+        height: "80vh", position: "relative", overflow: "hidden",
         fontFamily: "var(--font)",
       }}>
         {/* star canvas */}
@@ -92,7 +92,7 @@ export default function Hero() {
         {/* main content */}
         <div style={{
           position: "relative", zIndex: 1, maxWidth: 1320, margin: "0 auto",
-          padding: "72px 40px 80px",
+          padding: "30px 40px 80px",
           display: "flex", alignItems: "center", justifyContent: "space-between",
           gap: 48, flexWrap: "wrap",
         }}>
@@ -104,7 +104,7 @@ export default function Hero() {
             </p>
             <h1 style={{
               fontFamily: "var(--font2)",
-              fontSize: "clamp(72px,9.5vw,116px)", fontWeight: 900,
+              fontSize: "clamp(62px,8.5vw,76px)", fontWeight: 900,
               color: "var(--accent)", lineHeight: 0.88, textTransform: "uppercase",
               margin: 0, letterSpacing: -2,
               animation: "fadeUp 0.7s 0.1s ease both",
