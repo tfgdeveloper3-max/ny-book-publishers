@@ -6,6 +6,7 @@ const servicesMenu = [
   {
     label: "Writing Services",
     links: [
+      "Book Writing",
       "Ghostwriting Services",
       "Children's Book Writing",
       "Memoir Writing",
@@ -23,23 +24,22 @@ const servicesMenu = [
   {
     label: "Editing & Publishing",
     links: [
-      "Book Editing Services",
       "Book Proofreading",
-      "Book Formatting",
-      "Ebook Publishing Services",
+      "Book Editing",
+      "Ebook Creation",
       "Audiobook Narration",
-      "Book Coaching Services",
-      "Beta Reader Services",
+      "Book Formatting",
+      "Children's Book Editing",
+      "Book Publishing",
     ],
   },
   {
-    label: "Design & Marketing",
+    label: "Design, Printing & Marketing",
     links: [
-      "Book Cover Design Services",
-      "Illustration Design Services",
+      "Book Cover Design",
       "Author Website Design",
-      "Book Marketing Services",
       "Book Printing",
+      "Book Marketing",
     ],
   },
 ];
